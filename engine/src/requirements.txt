@@ -1,0 +1,7 @@
+six
+Crypto
+requests
+python-novaclient==2.18.0
+python-keystoneclient==3.6.0 
+pycrypto==2.6.1
+pytz

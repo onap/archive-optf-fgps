@@ -1,0 +1,97 @@
+# Copyright © 2019 AT&T
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+global:
+  loggingRepository: docker.elastic.co
+  loggingImage: beats/filebeat:5.5.0
+  repositoryCred:
+    user: repo_user@valet.onap.org
+    password: repo_password
+  repository: nexus.onap.org:5100
+  commonConfigPrefix: engine
+  ns: org-onap-fgps-dev
+  image:
+    filebeat: docker.elastic.co/beats/filebeat:5.5.0
+    repository: nexus.onap.org:5100
+    name: org.onap.fgps/engine:latest
+pullPolicy: Always
+nodePortPrefix: 300
+dataRootDir: /dockerdata-nfs
+config:
+  aai:
+    serviceName: aai.onap.org
+    port: 8443
+  msb:
+    serviceName: msb-iag
+    port: 80
+
+service:
+  type: NodePort
+  name: engine 
+  externalPort: 80
+  internalPort: 80
+  nodePort: 30632 
+  portName: engine 
+ingress:
+  enabled: false
+replicaCount: 1
+liveness:
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  enabled: true
+readiness:
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+
+logging:
+  path: "/engine/"
+  name: debug1.log
+  format: "%(asctime)s.%(msecs)03d [%(levelname)-5.5s] [%(name)s] - %(message)s"
+  size: 10000000
+  level: debug
+  lk: '234'
+db:
+  mode: music
+  keyspace: pn1
+  requests_table: requests
+  results_table: results
+  group_rules_table: group_rules
+  groups_table: groups
+  stacks_table: stacks
+  resources_table: resources
+  stack_id_map_table: stack_id_map
+  regions_table: regions
+  dk: '789'
+music:
+  host1: music1.onap.org
+  host2: music2.onap.org
+  host3: music3.onap.org
+  port: '8080'
+  path: "/MUSIC/rest/v2"
+  timeout: 10
+  retries: 3
+  replication_factor: 3
+  lock_timeout: 300
+  userid: musicuser@onap.org
+  password: encrypted_music_password
+  namespace: org.onap.dev.music
+nova:
+  project_name: admin
+  admin_view_username: openstack_username
+  admin_username: openstack_username
+  admin_view_password: encrypted_openstack_password
+  admin_password: encrypted_openstack_password
+topology:
+  mode: naming

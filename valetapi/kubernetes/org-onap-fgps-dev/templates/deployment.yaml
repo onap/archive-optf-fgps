@@ -1,0 +1,104 @@
+# Copyright © 2019 AT&T
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.global.ns }}
+  labels:
+    app: {{ .Chart.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+        release: {{ .Release.Name }}
+    spec:
+      serviceAccount: "default"
+      volumes:
+      - name: valetapi-volume
+        configMap:
+          name: valetapi-configs
+          items:
+           - key: application.properties
+             path: application.properties
+           - key: version.properties
+             path: version.properties
+           - key: system.properties
+             path: system.properties
+           - key: logback.xml
+             path: logback.xml
+           - key: resources.properties
+             path: resources.properties
+      - name: valetapi-logs
+        hostPath:
+          path: /opt/logs/fgps/api
+      imagePullSecrets:
+      - name: pullsecret
+      initContainers:
+      - name: init-cont
+        image: ubuntu:16.04
+        command: ['bash', '-c', 'useradd --uid 825 valetu && chown -R valetu /api']
+        volumeMounts:
+        - mountPath: /api
+          name: valetapi-logs
+      containers:
+      - env:
+         - name: systempropertiespath
+           value: system.properties 
+         - name: applicationpropertiespath
+           value: application.properties 
+         - name: logbackpath
+           value: logback.xml
+         - name: resourcespropertiespath
+           value: resources.properties 
+         - name: java_runtime_arguments
+           value: "-Xms75m -Xmx250m -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode" 
+        image: "nexus.onap.org:5100/org.onap.fgps/valetapi:latest"
+        imagePullPolicy: Always
+        name: "valetapi"
+        volumeMounts:
+        - name: valetapi-volume
+          mountPath: /opt/etc/config/application.properties
+          subPath:  application.properties
+        - name: valetapi-volume
+          mountPath: /opt/etc/config/version.properties
+          subPath:  version.properties    
+        - name: valetapi-volume
+          mountPath: /opt/etc/config/system.properties
+          subPath:  system.properties
+        - name: valetapi-volume
+          mountPath: /opt/etc/config/logback.xml
+          subPath:  logback.xml   
+        - name: valetapi-volume
+          mountPath: /opt/etc/config/resources.properties
+          subPath:  resources.properties           
+        - name: valetapi-logs
+          mountPath: /api
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+      restartPolicy: Always

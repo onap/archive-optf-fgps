@@ -1,0 +1,8 @@
+{
+    "name": "VNF_Rack_Quorum_RDN",
+    "type": "quorum-diversity",
+    "level": "rack",
+    "app_scope": "vnf",
+    "members": [],
+    "description": "Rack level quorum for vUSP RDN VMs"
+}
