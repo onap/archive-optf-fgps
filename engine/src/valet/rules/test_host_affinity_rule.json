@@ -1,0 +1,8 @@
+{
+    "name": "VALET_HOST_AFFINITY_RULE",
+    "type": "affinity",
+    "level": "host",
+    "app_scope": "vnf",
+    "members": [],
+    "description": "for test"
+}

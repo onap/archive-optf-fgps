@@ -1,0 +1,8 @@
+{
+    "name": "VALET_HOST_EXCLUSIVITY2",
+    "type": "exclusivity",
+    "level": "host",
+    "app_scope": "lcp",
+    "members": [],
+    "description": "for test"
+}

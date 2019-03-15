@@ -1,0 +1,8 @@
+{
+    "name": "VNF_host_diversity_RDN",
+    "type": "diversity",
+    "level": "host",
+    "app_scope": "vnf",
+    "members": [],
+    "description": "Host level diversity for vUSP RDN VMs"
+}

@@ -1,0 +1,8 @@
+{
+    "name": "VALET_HOST_DIVERSITY_RULE_0",
+    "type": "diversity",
+    "level": "host",
+    "app_scope": "lcp",
+    "members": [],
+    "description": "for test"
+}

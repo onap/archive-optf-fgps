@@ -1,0 +1,8 @@
+{
+    "name": "VNF_Rack_Diversity_RDN",
+    "type": "diversity",
+    "level": "rack",
+    "app_scope": "vnf",
+    "members": [],
+    "description": "Rack level diversity for vUSP RDN VMs"
+}
