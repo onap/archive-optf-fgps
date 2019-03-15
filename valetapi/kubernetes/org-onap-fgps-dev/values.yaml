@@ -1,0 +1,104 @@
+# Copyright © 2019 AT&T
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+global:
+  loggingRepository: docker.elastic.co
+  loggingImage: beats/filebeat:5.5.0
+  repositoryCred:
+    user: repouser@fgps.onap.org
+    password: repo_password
+  repository: nexus.onap.org:5100
+  commonConfigPrefix: valetapi
+  ns: org-onap-fgps-dev
+  image:
+    filebeat: docker.elastic.co/beats/filebeat:5.5.0
+    repository: nexus.onap.org:5100
+    name: org.onap.fgps/valetapi:latest
+
+pullPolicy: Always
+nodePortPrefix: 300
+dataRootDir: /dockerdata-nfs
+config:
+  aai:
+    serviceName: aai-ext1.test.onap.org
+    port: 8443
+  msb:
+    serviceName: msb-iag
+    port: 80
+
+service:
+  type: NodePort
+  name: valetapi
+  externalPort: 8080
+  internalPort: 8080
+  nodePort: 30808
+  portName: valetapi
+ingress:
+  enabled: false
+replicaCount: 2
+
+music:
+  ipOne: music_host_1.onap.org
+  ipTwo: music_host_1.onap.org
+  ipThree: music_host_1.onap.org
+  dbCreate: true
+  port: 8080
+  url: /MUSIC/rest/v2/
+  keyspace: pn2
+  namespace: org.onap.fgps.dev.music
+  userid: musicuser@onap.org
+  password: zev1w/9GdTYf92pTUQ9DhabHbEfUFcF4+kLjwLdA2as=
+  instanceid: valet01
+
+auth:
+  msoName: so_user
+  msoPass: IvuHSsIVfVkcy9QWoVhjAlh5Fi9Rg5myLmqvZEYhChE=
+  aafName: userid@fgps.onap.org
+  aasPassword: XuhhetzEGCh8O7Fm9bLF38LNsLvZEg3zvHzmFTgijlKcsC2hgfNJ21ojMkIZI5HG
+  portalRole: org.onap.portal.valet.admin
+
+appProperties:
+  server: 
+    contextpath: /api/valet/
+    port: 8443
+    sslenabled: true
+    sslkeystore: classpath:keystore.p12
+    sslkeystoretype: PKCS12
+    sslkeystorepassword: password
+    sslkeyalias: tomcat
+    httpport: 8080
+  valetdark: false
+  aafurl: https://aaf.onap.org:8095/proxy
+
+sysProperties:
+  loggingFile: logback.xml
+  loggingPath: opt/etc/config
+  loggingConfig: opt/etc/config/logback.xml
+  buildInfo:
+    artifact: ValetApi
+    name: org.onap.fgps
+    version: 0.0.1-SNAPSHOT
+  springConfig:
+    location: opt/etc/config/ 
+    name: application
+  kubeNamespace: org-onap-fgps
+  routeOffer: DEFAULT
+
+version:
+  major: 0
+  minor: 4
+  patch: 8 
+  full: 0.4.8
+
+  
