@@ -1,0 +1,13 @@
+   ___    ____________________
+  / . \\  /__  __/ ____// ____/
+ / /_\\ \\___/ / (____ )/ /___
+/_/   \\/____/ /_____/(_____/
+
+${archetype.name}-Version:${archetype.version}
+
+This project is generated from ECO seed template '${eco.seed.name}' on '${eco.seed.created.datetime}'.
+
+The details of the core maven project is :
+		1. mvn.archetype.name=${mvn.archetype.name}
+		2. mvn.archetype.groupName=${mvn.archetype.groupName}
+		3. mvn.archetype.version=${mvn.archetype.version}

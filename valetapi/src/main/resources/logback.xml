@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="3 seconds">
+  <!--<jmxConfigurator /> -->
+  <!-- directory path for all other type logs -->
+  <property name="logDir" value="/api" />
+  
+  <!-- directory path for debugging type logs -->
+  <property name="debugDir" value="/api" />
+  
+  <!--  specify the component name -->
+  <!--  <property name="componentName" value="EELF"></property> -->
+  <property name="componentName" value="VALTE-API"></property>
+  
+  <!--  log file names -->
+  <property name="generalLogName" value="api" />
+  <property name="errorLogName" value="error" />
+  <property name="metricsLogName" value="metrics" />
+  <property name="auditLogName" value="audit" />
+  <property name="debugLogName" value="debug" />
+  <property name="defaultPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" />
+  <property name="applicationLoggerPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %msg%n" />
+   <!-- Logging Fields Format Revisions --> 
+  <property name="auditLoggerPattern" value="begintimestamp:%X{AuditLogBeginTimestamp}|endtimestamp:%X{AuditLogEndTimestamp}|%X{RequestId}|%X{ServiceInstanceId}|thread:%thread|%X{VirtualServerName}|ServiceName:%X{ServiceName}|%X{PartnerName}|%X{StatusCode}|%X{ResponseCode}|%X{ResponseDescription}|InstanceUUID:%X{InstanceUUID}|Log Level:%.-5level|AlarmSeverity:%X{AlertSeverity}|ServerIPAddress:%X{ServerIPAddress}|Timer:%X{Timer}|ServerFQDN:%X{ServerFQDN}|%X{ClientIPAddress}|Class Name:%X{ClassName}|%X{Unused}|%X{ProcessKey}|%X{CustomField1}|%X{CustomField2}|%X{CustomField3}|%X{CustomField4}| Detailed Message:%msg%n" />
+  <property name="metricsLoggerPattern" value="begintimestamp:%X{MetricsLogBeginTimestamp}|endtimestamp:%X{MetricsLogEndTimestamp}|%X{RequestId}|%X{ServiceInstanceId}|thread:%thread|%X{VirtualServerName}|ServiceName:%X{ServiceName}|%X{PartnerName}|%X{TargetEntity}|%X{TargetServiceName}|%X{StatusCode}|%X{ResponseCode}|%X{ResponseDescription}|InstanceUUID:%X{InstanceUUID}|Log Level:%.-5level|AlarmSeverity:%X{AlertSeverity}|ServerIPAddress:%X{ServerIPAddress}|Timer:%X{Timer}|ServerFQDN:%X{ServerFQDN}|%X{ClientIPAddress}|Class Name:%X{ClassName}|%X{Unused}|%X{ProcessKey}|%X{TargetVisualEntity}|%X{CustomField1}|%X{CustomField2}|%X{CustomField3}|%X{CustomField4}| Detailed Message:%msg%n" />
+  <property name="errorLoggerPattern" value= "timestamp:%d{yyyy-MM-dd HH:mm:ss} [%thread]|Log Level:%-5level|Detailed Message:%msg%n	" />
+  <property name="debugLoggerPattern" value="timestamp:%date{ISO8601,UTC}|%X{RequestId}|Log Level:%-5level|Detailed Message:%msg%n" ></property>
+  <property name="logDirectory" value="${logDir}" />
+  <property name="debugLogDirectory" value="${logDir}" />
+  <!-- Example evaluator filter applied against console appender -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- <encoder>
+      <pattern>${defaultPattern}</pattern>
+    </encoder> -->
+    <layout class="">
+        <pattern>
+        		    %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n	
+        </pattern>
+    </layout>
+  </appender>
+
+  <!-- ============================================================================ -->
+  <!-- EELF Appenders -->
+  <!-- ============================================================================ -->
+  <appender name="EELF"
+    class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logDirectory}/${generalLogName}.log</file>
+    <rollingPolicy
+      class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>${logDirectory}/${generalLogName}.%i.log.zip
+      </fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>9</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy
+      class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>5MB</maxFileSize>
+    </triggeringPolicy>
+    <encoder>
+      <pattern>${applicationLoggerPattern}</pattern>
+    </encoder>
+  </appender>
+  
+  <appender name="asyncEELF" class="ch.qos.logback.classic.AsyncAppender">
+    <queueSize>256</queueSize>
+    <includeCallerData>true</includeCallerData>
+    <appender-ref ref="EELF" />
+  </appender>
+
+  
+  <!-- EELF Audit Appender. This appender is used to record audit engine 
+    related logging events. The audit logger and appender are specializations 
+    of the EELF application root logger and appender. This can be used to segregate 
+    Policy engine events from other components, or it can be eliminated to record 
+    these events as part of the application root log. -->
+    
+  <appender name="EELFAudit"
+    class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logDirectory}/${auditLogName}.log</file>
+    <rollingPolicy
+      class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>${logDirectory}/${auditLogName}.%i.log.zip
+      </fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>9</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy
+      class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>5MB</maxFileSize>
+    </triggeringPolicy>
+    <encoder>
+         <pattern>${auditLoggerPattern}</pattern>
+    </encoder>
+  </appender>
+  <appender name="asyncEELFAudit" class="ch.qos.logback.classic.AsyncAppender">
+    <queueSize>256</queueSize>
+    <appender-ref ref="EELFAudit" />
+  </appender>
+
+<appender name="EELFMetrics"
+    class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logDirectory}/${metricsLogName}.log</file>
+    <rollingPolicy
+      class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>${logDirectory}/${metricsLogName}.%i.log.zip
+      </fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>9</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy
+      class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>5MB</maxFileSize>
+    </triggeringPolicy>
+    <encoder>
+      <!-- <pattern>"%d{HH:mm:ss.SSS} [%thread] %-5level %logger{1024} - 
+        %msg%n"</pattern> -->
+      <pattern>${metricsLoggerPattern}</pattern>
+    </encoder>
+  </appender>
+  
+  
+  <appender name="asyncEELFMetrics" class="ch.qos.logback.classic.AsyncAppender">
+    <queueSize>256</queueSize>
+    <appender-ref ref="EELFMetrics"/>
+  </appender>
+   
+  <appender name="EELFError"
+    class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logDirectory}/${errorLogName}.log</file>
+    <rollingPolicy
+      class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>${logDirectory}/${errorLogName}.%i.log.zip
+      </fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>9</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy
+      class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>5MB</maxFileSize>
+    </triggeringPolicy>
+    <encoder>
+      <pattern>${errorLoggerPattern}</pattern>
+    </encoder>
+  </appender>
+  
+  <appender name="asyncEELFError" class="ch.qos.logback.classic.AsyncAppender">
+    <queueSize>256</queueSize>
+    <appender-ref ref="EELFError"/>
+  </appender>
+  
+   <appender name="EELFDebug"
+    class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${debugLogDirectory}/${debugLogName}.log</file>
+    <rollingPolicy
+      class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>${debugLogDirectory}/${debugLogName}.%i.log.zip
+      </fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>9</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy
+      class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>5MB</maxFileSize>
+    </triggeringPolicy>
+    <encoder>
+      <pattern>${debugLoggerPattern}</pattern>
+    </encoder>
+  </appender>
+  
+  <appender name="asyncEELFDebug" class="ch.qos.logback.classic.AsyncAppender">
+    <queueSize>256</queueSize>
+    <appender-ref ref="EELFDebug" />
+    <includeCallerData>true</includeCallerData>
+  </appender>
+ 
+  
+  <!-- ============================================================================ -->
+  <!--  EELF loggers -->
+  <!-- ============================================================================ -->
+  <!-- 
+  <logger name="org.onap.eelf" level="info" additivity="false">
+    <appender-ref ref="asyncEELF" />
+    
+  </logger>
+  
+  <logger name="org.onap.eelf.audit" level="info" additivity="false">
+    <appender-ref ref="asyncEELFAudit" />
+    
+  </logger>
+  
+  <logger name="org.onap.eelf.metrics" level="info" additivity="false">
+        <appender-ref ref="asyncEELFMetrics" />
+        
+  </logger>
+ 
+ 
+   <logger name="org.onap.eelf.error" level="error" additivity="false">
+  <appender-ref ref="asyncEELFError" />
+  
+  </logger>
+  
+   <logger name="org.onap.eelf.debug" level="debug" additivity="false">
+        <appender-ref ref="asyncEELFDebug" />
+       
+  </logger>
+  -->
+  
+  <root level="INFO">
+    <appender-ref ref="asyncEELF" />
+    <appender-ref ref="STDOUT" />
+  </root>
+
+</configuration>
