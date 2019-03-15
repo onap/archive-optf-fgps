@@ -1,0 +1,25 @@
+/target/
+*.class
+
+/.classpath
+/.project
+/.settings/
+
+*.pyc
+.DS_Store
+
+# Java Compiled class file
+*.class
+
+# Log files
+Valet-Engine/log/*
+
+# junk directories
+.old
+
+# pycharm directory
+src/.idea
+
+.checkstyle
+.project
+.pydevproject
