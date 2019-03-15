@@ -1,0 +1,76 @@
+# Copyright © 2019 AT&T
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.global.ns }}
+  labels:
+    app: {{ .Chart.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+        release: {{ .Release.Name }}
+    spec:
+      serviceAccount: "default"
+      volumes:
+      - name: engine-volume
+        configMap:
+          name: engine-configs
+          items:
+           - key: solver.json
+             path: solver.json
+      - name: engine-logs
+        hostPath:
+          path: /opt/logs/engine
+      imagePullSecrets:
+      - name: pullsecret
+      initContainers:
+      - name: init-cont
+        image: ubuntu:16.04
+        command: ['bash', '-c', 'useradd --uid 825 valetu && chown -R valetu /engine']
+        volumeMounts:
+        - mountPath: /engine
+          name: engine-logs
+      containers:
+      - env:
+         - name: properties
+           value: solver.json 
+        image: "nexus.onap.org:5100/org.onap.fgps/engine:latest"
+        imagePullPolicy: Always
+        name: "engine"
+        volumeMounts:
+        - name: engine-volume
+          mountPath: /opt/config/solver.json
+          subPath:  solver.json          
+        - name: engine-logs
+          mountPath: /engine
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+      restartPolicy: Always

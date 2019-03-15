@@ -1,0 +1,72 @@
+{
+  "engine": {
+    "id": "valet01",
+    "timeout": 300,
+    "dha": "false",
+    "ek": "123"
+  },
+  "logging": {
+    "path": "{{.Values.logging.path}}",
+    "name": "{{.Values.logging.name}}",
+    "format": "{{.Values.logging.format}}",
+    "size": 10000000,
+    "level": "{{.Values.logging.level}}",
+    "lk": "234"
+  },
+  "db": {
+    "mode": "music",
+    "keyspace": "{{.Values.db.keyspace}}",
+    "requests_table": "{{.Values.db.requests_table}}",
+    "results_table": "{{.Values.db.results_table}}",
+    "group_rules_table": "{{.Values.db.group_rules_table}}",
+    "groups_table": "{{.Values.db.groups_table}}",
+    "stacks_table": "{{.Values.db.stacks_table}}",
+    "resources_table": "{{.Values.db.resources_table}}",
+    "stack_id_map_table": "{{.Values.db.stack_id_map_table}}",
+    "regions_table": "{{.Values.db.regions_table}}",
+    "dk": "789"
+  },
+  "music": {
+    "hosts": [ "{{.Values.music.host1}}", "{{.Values.music.host2}}", "{{.Values.music.host3}}" ],
+    "port": "8080",
+    "path": "/MUSIC/rest/v2",
+    "timeout": 10,
+    "retries": 3,
+    "replication_factor": 3,
+    "lock_timeout": 300,
+    "userid": "{{.Values.music.userid}}",
+    "password": "{{.Values.music.password}}",
+    "namespace": "{{.Values.music.namespace}}"
+  },
+  "compute": {
+    "mode": "nova",
+    "default_cpu_allocation_ratio": 1.0,
+    "default_ram_allocation_ratio": 1.0,
+    "default_disk_allocation_ratio": 1.0,
+    "batch_sync_interval": 3600
+  },
+  "nova": {
+    "project_name": "{{.Values.nova.project_name}}",
+    "admin_view_username": "{{.Values.nova.admin_view_username}}",
+    "admin_username": "{{.Values.nova.admin_username}}",
+    "admin_view_password": "{{.Values.nova.admin_view_password}}",
+    "admin_password": "{{.Values.nova.admin_password}}"
+  },
+  "topology": {
+    "mode": "{{.Values.topology.mode}}"
+  },
+  "naming": {
+    "rack_codes": [
+      "r"
+    ],
+    "host_codes": [
+      "a",
+      "c",
+      "u",
+      "f",
+      "o",
+      "p",
+      "s"
+    ]
+  }
+}

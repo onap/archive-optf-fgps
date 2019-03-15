@@ -1,0 +1,72 @@
+{
+  "engine": {
+    "id": "valet01",
+    "timeout": 300,
+    "dha": "true",
+    "ek": "123"
+  },
+  "logging": {
+    "path": "/engine",
+    "name": "solver_test.log",
+    "format": "%(asctime)s.%(msecs)03d [%(levelname)-5.5s] [%(name)s] - %(message)s",
+    "size": 10000000,
+    "level": "debug",
+    "lk": "234"
+  },
+  "db": {
+    "mode": "mem_db",
+    "keyspace": "Valet_IST",
+    "requests_table": "requests",
+    "results_table": "results",
+    "group_rules_table": "group_rules",
+    "groups_table": "groups",
+    "stacks_table": "stacks",
+    "resources_table": "resources",
+    "stack_id_map_table": "stack_id_map",
+    "regions_table": "regions",
+    "dk": "789"
+  },
+  "music": {
+    "hosts": [ "music_host_1.onap.org", "music_host_2.onap.org" ],
+    "port": "8080",
+    "path": "/MUSIC/rest/v2",
+    "timeout": 10,
+    "retries": 3,
+    "replication_factor": 3,
+    "lock_timeout": 300,
+    "userid": "musicuser@onap.org",
+    "password": "encrypted_music_password",
+    "namespace": "org.onap.dev.music"
+  },
+  "compute": {
+    "mode": "sim",
+    "default_cpu_allocation_ratio": 1.0,
+    "default_ram_allocation_ratio": 1.0,
+    "default_disk_allocation_ratio": 1.0,
+    "batch_sync_interval": 3600
+  },
+  "nova": {
+    "project_name": "admin",
+    "admin_view_username": "openstack_username",
+    "admin_username": "openstack_username",
+    "admin_view_password": "encrypted_openstack_password",
+    "admin_password": "encrypted_openstack_password"
+  },
+  "topology": {
+    "mode": "naming"
+  },
+  "naming": {
+    "rack_codes": [
+      "r"
+    ],
+    "host_codes": [
+      "a",
+      "c",
+      "u",
+      "f",
+      "o",
+      "p",
+      "s"
+    ]
+  }
+}
