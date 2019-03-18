@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "934117bf_5f8f01c5",
+        "filename": "engine/src/valet/engine/db_connect/db_apis/music.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2041
+      },
+      "writtenOn": "2019-03-18T18:16:03Z",
+      "side": 1,
+      "message": "Please remove the duplicate copyright.",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 1
+      },
+      "revId": "f454f439016bdae1bb6616946a68224b393583da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
