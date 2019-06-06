@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a453d27_80511691",
+        "filename": "version.properties",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2041
+      },
+      "writtenOn": "2019-06-06T14:35:17Z",
+      "side": 1,
+      "message": "This should be 1.0.0 for FGPS.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 7
+      },
+      "revId": "aec82ffcfcda41501827d04e74f6e8c94650bb0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
