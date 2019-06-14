@@ -21,16 +21,20 @@
 		<sdk.java.rest>6.2.0.11</sdk.java.rest>
 		
 		<!-- SONAR -->
+		<sonar.language>java</sonar.language>
+        <sonar.sources>src/main/java</sonar.sources>
+		<sonar.tests>src/test</sonar.tests>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 		<sonar.surefire.reportsPath>${basedir}/target/surefire-reports</sonar.surefire.reportsPath>
 		<sonar.failsafe.reportsPath>${basedir}/target/failsafe-reports</sonar.failsafe.reportsPath>
-		<jacoco.path>${basedir}/target/jacoco_report</jacoco.path>
-		<jacoco.itPath>${basedir}/target/jacoco_itReport</jacoco.itPath>
+		<sonar.jacoco.reportMissing.force.zero>true</sonar.jacoco.reportMissing.force.zero>
 		<sonar.jacoco.reportPath>${basedir}/target/jacoco-ut.exec</sonar.jacoco.reportPath>
 		<sonar.jacoco.itReportPath>${basedir}/target/jacoco-it.exec</sonar.jacoco.itReportPath>
-		<sonar.language>java</sonar.language>
 		<sonar.exclusions>**/gen/**,**/generated-sources/**</sonar.exclusions>
+		<sonar.projectVersion>${project.version}</sonar.projectVersion>
+		<jacoco.path>${basedir}/target/jacoco_report</jacoco.path>
+		<jacoco.itPath>${basedir}/target/jacoco_itReport</jacoco.itPath>
 		
 		<serviceArtifactName>valetapi</serviceArtifactName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
