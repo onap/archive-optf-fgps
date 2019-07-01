@@ -33,5 +33,5 @@
 	    </excludes>
         </fileSet>
     </fileSets>
-    <baseDirectory>conductor</baseDirectory>
+    <baseDirectory>engine</baseDirectory>
 </assembly>
