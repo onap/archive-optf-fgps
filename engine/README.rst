@@ -1,4 +1,4 @@
-#
+# 
 # -------------------------------------------------------------------------
 #   Copyright (c) 2019 AT&T Intellectual Property
 #   Modifications Copyright (C) 2019 IBM
@@ -17,13 +17,11 @@
 #
 # -------------------------------------------------------------------------
 #
+====
+FGPS
+====
 
-major=1.0.0
-minor=1.0.0
-patch=1.0.0
+Fine-Grained Placement Service (FGPS) is the implementation of the ONAP placement service.
 
-base_version=${major}.${minor}.${patch}
+Given the resource that needs to be deployed in the data center chosen by Conductor/HAS, FGPS will choose an optimal physical host for the virtual resources to be deployed on, obeying the given constraints.
 
-# Release must be completed with git revision # in Jenkins
-release_version=${base_version}
-snapshot_version=${base_version}-SNAPSHOT

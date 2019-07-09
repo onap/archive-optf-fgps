@@ -1,4 +1,4 @@
-#
+# -*- encoding: utf-8 -*-
 # -------------------------------------------------------------------------
 #   Copyright (c) 2019 AT&T Intellectual Property
 #   Modifications Copyright (C) 2019 IBM
@@ -17,13 +17,20 @@
 #
 # -------------------------------------------------------------------------
 #
-
-major=1.0.0
-minor=1.0.0
-patch=1.0.0
-
-base_version=${major}.${minor}.${patch}
-
-# Release must be completed with git revision # in Jenkins
-release_version=${base_version}
-snapshot_version=${base_version}-SNAPSHOT
+	
+'''Setup'''
+	
+import setuptools
+	
+# In python < 2.7.4, a lazy loading of package `pbr` will break
+# setuptools if some other modules registered functions in `atexit`.
+# solution from: http://bugs.python.org/issue15881#msg170215
+try:
+    import multiprocessing  # noqa # pylint: disable=W0611,C0411
+except ImportError:
+    pass
+	
+setuptools.setup(
+    setup_requires=['pbr>=1.8'],
+    pbr=True)
+	
