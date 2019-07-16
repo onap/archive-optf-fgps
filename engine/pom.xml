@@ -25,7 +25,13 @@
     </parent>
 
     <properties>
+        <!--nexus -->
+        <nexusproxy>https://nexus.onap.org</nexusproxy>
         <onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
+        <snapshotNexusPath>/content/repositories/snapshots/</snapshotNexusPath>
+        <releaseNexusPath>/content/repositories/releases/</releaseNexusPath>
+        <stagingNexusPath>/content/repositories/staging/</stagingNexusPath>
+				
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>yyyyMMdd'T'HHmm</maven.build.timestamp.format>
 		
@@ -49,6 +55,42 @@
     <name>fgps-engine</name>
     <version>0.0.1-SNAPSHOT</version>
     <description>Fine Grained Placement Service</description>
+	
+	<distributionManagement>
+        <repository>
+            <id>onap-releases</id>
+            <name>ONAP - Release Repository</name>
+            <url>${nexusproxy}${releaseNexusPath}</url>
+        </repository>
+        <snapshotRepository>
+            <id>onap-snapshots</id>
+            <name>ONAP - Snapshot Repository</name>
+            <url>${nexusproxy}${snapshotNexusPath}</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>onap-releases</id>
+            <name>ONAP - Release Repository</name>
+            <url>${nexusproxy}${releaseNexusPath}</url>
+        </repository>
+        <repository>
+            <id>onap-staging</id>
+            <name>ONAP - Staging Repository</name>
+            <url>${nexusproxy}${stagingNexusPath}</url>
+        </repository>
+        <repository>
+            <id>onap-snapshots</id>
+            <name>ONAP - Snapshot Repository</name>
+            <url>${nexusproxy}${snapshotNexusPath}</url>
+        </repository>
+        <repository>
+            <id>onap-public</id>
+            <name>ONAP public Repository</name>
+            <url>${nexusproxy}/content/groups/public</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
