@@ -1,6 +1,6 @@
 FROM python:2.7.15-alpine
 
-COPY src/ /opt/engine
+COPY 	/src/ /opt/engine
 WORKDIR /opt/engine
 
 ARG HTTP_PROXY
@@ -21,3 +21,5 @@ USER valetu:valetg
 RUN date > /home/valetu/imagedate.txt
 
 CMD ["python", "valet/valet_main.py", "/opt/config/solver.json"]
+
+
