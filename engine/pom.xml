@@ -49,7 +49,7 @@
         <sonar.test.exclusions>**/**.py,setup.py,**/lib/**</sonar.test.exclusions>
     </properties>
 
-    <groupId>org.onap.fgps</groupId>
+    <groupId>org.onap.optf.fgps</groupId>
     <artifactId>fgps-engine</artifactId>
 
     <name>fgps-engine</name>
