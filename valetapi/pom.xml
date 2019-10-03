@@ -10,7 +10,7 @@
     <properties>
         <swagger.directory>${basedir}/target/classes/META-INF/resources/swagger</swagger.directory>
         <java.version>1.8</java.version>
-        <docker.registry>nexus.onap.org:5100</docker.registry>
+<!--        <docker.registry>nexus.onap.org:5100</docker.registry> -->
         <build.number>local</build.number>
         <kube.namespace>org-onap-fgps</kube.namespace>
         <service.account>svc-account</service.account>
