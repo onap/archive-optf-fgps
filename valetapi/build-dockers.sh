@@ -10,7 +10,7 @@ set -e
 BUILD_ARGS="--no-cache"
 ORG="onap"
 PROJECT="fgps-api"
-DOCKER_REPOSITORY="nexus.onap.org:5100"
+DOCKER_REPOSITORY="nexus3.onap.org:10001"
 IMAGE_NAME="${DOCKER_REPOSITORY}/${ORG}/${PROJECT}"
 
 # Version properties
