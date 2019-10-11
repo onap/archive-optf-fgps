@@ -1,6 +1,6 @@
 FROM python:2.7.15-alpine
 
-COPY 	/src/ /opt/engine
+COPY 	. /opt/engine
 WORKDIR /opt/engine
 
 ARG HTTP_PROXY
