@@ -49,7 +49,7 @@ function get_artifact_version() {
 
 function build_image() {
     log_ts Building Image in folder: $PWD with build arguments ${BUILD_ARGS}
-    docker build ${BUILD_ARGS} -t ${IMAGE_NAME}:latest .
+    docker build ${BUILD_ARGS} -t ${IMAGE_NAME}:latest -f src/docker/Dockerfile .
     log_ts ... Built
 }
 
