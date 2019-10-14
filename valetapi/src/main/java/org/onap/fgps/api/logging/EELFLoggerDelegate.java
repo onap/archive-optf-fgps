@@ -58,7 +58,7 @@ import org.onap.fgps.api.logging.aspect.EELFLoggerAdvice;
 import org.onap.fgps.api.logging.format.AlarmSeverityEnum;
 //import org.onap.portalsdk.core.domain.User;
 import org.onap.fgps.api.utils.SystemProperties;
-import org.onap.fgps.api.utils.UserUtils;;
+import org.onap.fgps.api.utils.UserUtils;
 import org.slf4j.MDC;
 
 

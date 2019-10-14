@@ -147,22 +147,6 @@
             <version>2.4.13</version>
         </dependency>
         <dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-consumer-junit_2.11</artifactId>
-            <version>3.3.9</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-all</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-provider-junit_2.11</artifactId>
-            <version>3.3.9</version>
-        </dependency>
-        <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
             <version>1.38</version>
@@ -407,41 +391,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>au.com.dius</groupId>
-                <artifactId>pact-jvm-provider-maven_2.11</artifactId>
-                <version>3.3.9</version>
-                <configuration>
-                    <!--pactBrokerUrl,user name,password and project version required only 
-                        for consumer -->
-                    <pactBrokerUrl>${BROKER_URL}</pactBrokerUrl>
-                    <pactBrokerUsername>${userName}</pactBrokerUsername>
-                    <pactBrokerPassword>${password}</pactBrokerPassword>
-                    <projectVersion>0.0.1</projectVersion>
-                    <!-- service provider required only for producer -->
-                    <serviceProviders>
-                        <serviceProvider>
-                            <name>ValetApi</name>
-                            <protocol>http</protocol>
-                            <host>${APP_URL}</host>
-                            <port>${APP_PORT}</port>
-                            <path>/</path>
-                            <pactBroker>
-                                <url>${BROKER_URL}</url>
-                                <authentication>
-                                    <username>${userName}</username>
-                                    <password>${password}</password>
-                                </authentication>
-                            </pactBroker>
-                            <!-- If you want to test specific PACT and specific port uncomment 
-                                the consumers section and comment the pact broker in the service provider -->
-                            <!-- <consumers> <consumer> <name>pactconsumer</name> <pactUrl>${brokerUrl}/pacts/provider/pactdemo/consumer/pactdemo/latest</pactUrl> 
-                                <pactUrl>${brokerUrl}/pacts/provider/pactdemo/consumer/pactconsumer2/version/0.0.1</pactUrl> 
-                                </consumer> </consumers> -->
-                        </serviceProvider>
-                    </serviceProviders>
-                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
