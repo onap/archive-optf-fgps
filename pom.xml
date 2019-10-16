@@ -33,7 +33,7 @@
     </parent>
 
     <properties>
-        <onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
+        <onap.nexus.url>https://nexus.onap.org:10003</onap.nexus.url>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>yyyyMMdd'T'HHmm</maven.build.timestamp.format>
     </properties>
