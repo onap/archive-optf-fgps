@@ -23,7 +23,7 @@
 
     <groupId>org.onap.optf.fgps</groupId>
     <artifactId>fgps</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>3.2.37-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -140,6 +140,21 @@
                     </links>
                 </configuration>
             </plugin>
-        </plugins>
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.7</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependency-updates-report</report>
+                            <report>plugin-updates-report</report>
+                             <report>property-updates-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+		</plugins>
     </reporting>
+	
 </project>
