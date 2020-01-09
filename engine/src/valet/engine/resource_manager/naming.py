@@ -22,7 +22,6 @@
 import copy
 import re
 
-from sre_parse import isdigit
 from valet.engine.resource_manager.resources.host_group import HostGroup
 
 
@@ -34,6 +33,9 @@ class Naming(object):
 
         self.rack_code_list = _config.get("rack_codes")
         self.host_code_list = _config.get("host_codes")
+
+    def isdigit(char):
+        return "0" <= char <= "9"
 
     def get_topology(self, _datacenter, _host_groups, _hosts, _rhosts):
         """Set datacenter resource structure (racks, hosts)."""

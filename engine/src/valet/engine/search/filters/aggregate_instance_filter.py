@@ -16,7 +16,7 @@
 #
 # -------------------------------------------------------------------------
 #
-import filter_utils
+from . import filter_utils
 import six
 
 

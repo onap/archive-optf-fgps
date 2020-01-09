@@ -16,7 +16,7 @@
 #
 # -------------------------------------------------------------------------
 #
-import filter_utils
+from . import filter_utils
 
 from valet.engine.app_manager.group import Group
 from valet.engine.app_manager.server import Server
