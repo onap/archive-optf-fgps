@@ -125,7 +125,7 @@ class HostResource(object):
         self.NUMA = NUMA(numa=host_type["NUMA"])
 
         if self.candidate_host_types is not None:
-            for htk, htl in self.candidate_host_types.iteritems():
+            for htk, htl in self.candidate_host_types.items():
                 if htk == "mockup":
                     self.rack_avail_vCPUs -= htl[0]["avail_vCPUs"]
                     self.rack_avail_mem -= htl[0]["avail_mem"]
@@ -162,7 +162,7 @@ class HostResource(object):
         host_type = self.get_host_type(_ha, self.old_candidate_host_types)
 
         if self.old_candidate_host_types is not None:
-            for htk, htl in self.old_candidate_host_types.iteritems():
+            for htk, htl in self.old_candidate_host_types.items():
                 if htk == "mockup":
                     self.host_avail_vCPUs = htl[0]["avail_vCPUs"]
                     self.host_avail_mem = htl[0]["avail_mem"]
@@ -243,12 +243,12 @@ class HostResource(object):
         memberships = {}
 
         if _level == "rack":
-            for mk, m in self.rack_memberships.iteritems():
+            for mk, m in self.rack_memberships.items():
                 memberships[mk] = m
-            for mk, m in self.host_memberships.iteritems():
+            for mk, m in self.host_memberships.items():
                 memberships[mk] = m
         elif _level == "host":
-            for mk, m in self.host_memberships.iteritems():
+            for mk, m in self.host_memberships.items():
                 memberships[mk] = m
 
         return memberships

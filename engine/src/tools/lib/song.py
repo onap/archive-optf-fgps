@@ -44,7 +44,7 @@ def hosts(opts, config):
     config["music"]["hosts"] = _hosts["music"][opts.env or "dev"]["hosts"]["a"]
 
     if opts.verbose:
-        print "hosts: " + str(config["music"]["hosts"])
+        print("hosts: " + str(config["music"]["hosts"]))
 
 
 # noinspection PyBroadException
@@ -61,7 +61,7 @@ class Song(Music):
         "ist": "valet_IST",
         "gj":  "valet_TestDB2"
     }
-    Keyspaces.update(dict((v, v) for k, v in Keyspaces.iteritems()))  # full name is valid too
+    Keyspaces.update(dict((v, v) for k, v in Keyspaces.items()))  # full name is valid too
 
     def __init__(self, opts, config, logger):
         if opts.env:
@@ -143,7 +143,7 @@ def main():
     config = json.loads(open(opts.config).read())
     music = Song(opts, config, logger)
 
-    print json.dumps(config.get("music"))
+    print (json.dumps(config.get("music")))
     print (music.keyspace)
 
 

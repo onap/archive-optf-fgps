@@ -100,7 +100,7 @@ class Optimizer(object):
     def _set_app(self, _app, _state):
         """Update with assigned hosts."""
 
-        for v, p in self.search.node_placements.iteritems():
+        for v, p in self.search.node_placements.items():
             if isinstance(v, Server):
                 v.host = p.host_name
                 if p.rack_name != "any":
@@ -127,7 +127,7 @@ class Optimizer(object):
     def _update_app(self, _app):
         """Update state of servers."""
 
-        for sk, s in _app.servers.iteritems():
+        for sk, s in _app.servers.items():
             if s["host"] == "none":
                 continue
 
@@ -161,7 +161,7 @@ class Optimizer(object):
         And update placements if they have been changed.
         """
 
-        for sk, s in _app.servers.iteritems():
+        for sk, s in _app.servers.items():
             if s["host"] == "none":
                 continue
 
@@ -201,7 +201,7 @@ class Optimizer(object):
 
         # If host's type (i.e., host-aggregate) is not determined before, 
         # Convert/set host's type to one as specified in VM.
-        for v, p in self.search.node_placements.iteritems():
+        for v, p in self.search.node_placements.items():
             if isinstance(v, Server):
                 # The host object p was deep copied, so use original object.
                 rh = self.search.avail_hosts[p.host_name]
@@ -217,7 +217,7 @@ class Optimizer(object):
 
         placements = {}
 
-        for v, p in self.search.node_placements.iteritems():
+        for v, p in self.search.node_placements.items():
             if isinstance(v, Server):
                 s_info = {}
 
@@ -254,11 +254,11 @@ class Optimizer(object):
 
         groups = {}
 
-        for v, p in self.search.node_placements.iteritems():
+        for v, p in self.search.node_placements.items():
             if isinstance(v, Server):
                 rh = self.search.avail_hosts[p.host_name]
 
-                for gk, g in rh.host_memberships.iteritems():
+                for gk, g in rh.host_memberships.items():
                     if g.factory in ("valet", "server-group"):
                         if g.level == "host":
                             _app.resource.add_group(gk,
@@ -268,7 +268,7 @@ class Optimizer(object):
                                                     rh.host_name)
 
                 if rh.rack_name != "any":
-                    for gk, g in rh.rack_memberships.iteritems():
+                    for gk, g in rh.rack_memberships.items():
                         if g.factory in ("valet", "server-group"):
                             if g.level == "rack":
                                 _app.resource.add_group(gk,
@@ -329,7 +329,7 @@ class Optimizer(object):
            Remove placements from NUMA cells of resource object.
         """
 
-        for v, p in self.search.node_placements.iteritems():
+        for v, p in self.search.node_placements.items():
             if isinstance(v, Server):
                 s_info = {}
 
@@ -396,7 +396,7 @@ class Optimizer(object):
 
         placements = {}
 
-        for sk, s in _app.servers.iteritems():
+        for sk, s in _app.servers.items():
             if s["host"] == "none":
                 continue
 
@@ -449,7 +449,7 @@ class Optimizer(object):
 
         placements = {}
 
-        for sk, s in _app.servers.iteritems():
+        for sk, s in _app.servers.items():
             if s["host"] == "none":
                 continue
 

@@ -16,7 +16,7 @@
 #
 # -------------------------------------------------------------------------
 #
-#!/bin/python
+#!/usr/bin/env python3
 
 
 from valet.engine.resource_manager.resources.host import Host
@@ -151,7 +151,7 @@ class ComputeManager(object):
         #        the server is placed as planned.
         change_of_placements = {}
 
-        for hk, host in self.hosts.iteritems():
+        for hk, host in self.hosts.items():
             rhost = _resource.hosts[hk]
 
             for s_info in host.server_list:
@@ -170,7 +170,7 @@ class ComputeManager(object):
                 else:
                     change_of_placements[sid]["host"] = hk
 
-        for rhk, rhost in _resource.hosts.iteritems():
+        for rhk, rhost in _resource.hosts.items():
             if not rhost.is_available():
                 continue
 

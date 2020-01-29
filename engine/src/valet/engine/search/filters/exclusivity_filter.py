@@ -37,7 +37,7 @@ class ExclusivityFilter(object):
             return False
 
         if len(exclusivities) == 1:
-            ex_group = exclusivities[exclusivities.keys()[0]]
+            ex_group = exclusivities[list(exclusivities)[0]]
 
             if ex_group.level == _level:
                 self.exclusivity_id = ex_group.vid
@@ -66,7 +66,7 @@ class ExclusivityFilter(object):
     def _check_exclusive_candidate(self, _level, _candidate):
         memberships = _candidate.get_memberships(_level)
 
-        for gk, gr in memberships.iteritems():
+        for gk, gr in memberships.items():
             if gr.group_type == "exclusivity" and gk == self.exclusivity_id:
                 return True
 

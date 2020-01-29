@@ -57,7 +57,7 @@ class REST(object):
             'ns': self.ns,
             'accept': content_type,
             'content-type': content_type,
-            'authorization': 'Basic %s' % base64.b64encode(self.userid + ':' + self.password)
+            'authorization': 'Basic %s' % base64.b64encode((self.userid + ':' + self.password).encode()).decode()
         }
 
         return headers
@@ -99,7 +99,7 @@ class REST(object):
                     return response
 
                 except requests.exceptions.Timeout as err:
-                    err_message = err.message
+                    err_message = str(err) #err.message
                     response = requests.Response()
                     response.url = full_url
                     if not timeout:
@@ -107,7 +107,7 @@ class REST(object):
                         timeout = True
 
                 except requests.exceptions.RequestException as err:
-                    err_message = err.message
+                    err_message = str(err) #err.message
                     self.logger.debug("Music: %s Request Exception" % url)
                     self.logger.debug(" method = %s" % method)
                     self.logger.debug(" timeout = %s" % self.timeout)

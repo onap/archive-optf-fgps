@@ -46,7 +46,7 @@ class NoExclusivityFilter(object):
     def _check_candidate(self, _level, _candidate):
         memberships = _candidate.get_memberships(_level)
 
-        for _, g in memberships.iteritems():
+        for _, g in memberships.items():
             if g.group_type == "exclusivity" and g.level == _level:
                 return False
 

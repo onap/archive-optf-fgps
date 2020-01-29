@@ -62,7 +62,7 @@ class AffinityFilter(object):
         """Filter based on named affinity group."""
 
         memberships = _candidate.get_all_memberships(_level)
-        for gk, gr in memberships.iteritems():
+        for gk, gr in memberships.items():
             if gr.group_type == "affinity" and gk == self.affinity_id:
                 return True
 

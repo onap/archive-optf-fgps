@@ -16,7 +16,7 @@
 #
 # -------------------------------------------------------------------------
 #
-#!/bin/python
+#!/usr/bin/env python3
 
 
 import copy
@@ -42,7 +42,7 @@ class Naming(object):
 
         status = "ok"
 
-        for rhk, rhost in _rhosts.iteritems():
+        for rhk, rhost in _rhosts.items():
             h = copy.deepcopy(rhost)
 
             (rack_name, parsing_status) = self._set_layout_by_name(rhk)
@@ -65,7 +65,7 @@ class Naming(object):
 
             _hosts[h.name] = h
 
-        for hgk, hg in _host_groups.iteritems():
+        for hgk, hg in _host_groups.items():
             hg.parent_resource = _datacenter
             _datacenter.resources[hgk] = hg
 

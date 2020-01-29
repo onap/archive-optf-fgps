@@ -85,7 +85,7 @@ class Server(object):
 
         exclusivities = {}
 
-        for exk, group in self.exclusivity_groups.iteritems():
+        for exk, group in self.exclusivity_groups.items():
             if group.level == _level:
                 exclusivities[exk] = group
 
@@ -106,7 +106,7 @@ class Server(object):
         flavor_type_list = []
 
         for extra_specs in self.extra_specs_list:
-            for k, v in extra_specs.iteritems():
+            for k, v in extra_specs.items():
                 k_elements = k.split(':')
                 if len(k_elements) > 1:
                     if k_elements[0] == "aggregate_instance_extra_specs":

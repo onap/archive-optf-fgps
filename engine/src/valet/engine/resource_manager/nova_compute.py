@@ -141,7 +141,7 @@ class NovaCompute(object):
 
                     # TODO: Get AZ first with init Compute Hosts?
 
-                    for hk, h_info in a.hosts.iteritems():
+                    for hk, h_info in a.hosts.items():
                         if "nova-compute" in h_info.keys():
                             if h_info["nova-compute"]["active"] and \
                                h_info["nova-compute"]["available"]:
@@ -538,7 +538,7 @@ class NovaCompute(object):
             flavor.disk_cap = root_gb + ephemeral_gb + swap_mb / float(1024)
 
             extra_specs = _f.get_keys()
-            for sk, sv in extra_specs.iteritems():
+            for sk, sv in extra_specs.items():
                 flavor.extra_specs[sk] = sv
 
         return flavor

@@ -16,7 +16,7 @@
 #
 # -------------------------------------------------------------------------
 #
-#!/bin/python
+#!/usr/bin/env python3
 
 
 from valet.engine.resource_manager.resources.datacenter import Datacenter

@@ -51,7 +51,7 @@ class DBHandler(object):
             return []
 
         if rows is not None and len(rows) > 0:
-            for key, row in rows.iteritems():
+            for key, row in rows.items():
                 if key == "status":
                     if row == "FAILURE":
                         self.logger.error("DB: Failure in " + self.requests_table)
@@ -60,7 +60,7 @@ class DBHandler(object):
                 elif key == "error":
                     continue
                 elif key == "result":
-                    for _, dbrow in row.iteritems():
+                    for _, dbrow in row.items():
                         request_list.append(dbrow)
 
             if len(request_list) > 0:
@@ -105,13 +105,13 @@ class DBHandler(object):
             return None
 
         if rows is not None and len(rows) > 0:
-            for key, row in rows.iteritems():
+            for key, row in rows.items():
                 if key == "status":
                     continue
                 elif key == "error":
                     continue
                 elif key == "result":
-                    for _, dbrow in row.iteritems():
+                    for _, dbrow in row.items():
                         result_list.append(dbrow)
 
         return result_list
@@ -158,7 +158,7 @@ class DBHandler(object):
             self.logger.error("DB: while reading locked regions: " + str(e))
             return None
 
-        for _, data in sorted(result.iteritems()):
+        for _, data in sorted(result.items()):
             if int(data["expire_time"]) < now():
 
                 self.logger.warning("lock on %s has timed out and is revoked" % data["region_id"])
@@ -234,7 +234,7 @@ class DBHandler(object):
         if len(row) > 0:
             if "result" in row.keys():
                 if len(row["result"]) > 0:
-                    return row["result"][row["result"].keys()[0]]
+                    return row["result"][list(row["result"])[0]]
                 else:
                     return {}
             else:
@@ -266,9 +266,9 @@ class DBHandler(object):
             return None
 
         if len(rows) > 0:
-            for key, row in rows.iteritems():
+            for key, row in rows.items():
                 if key == "result":
-                    for _, dbrow in row.iteritems():
+                    for _, dbrow in row.items():
                         rule_list.append(dbrow)
 
         return rule_list
@@ -285,7 +285,7 @@ class DBHandler(object):
         if len(row) > 0:
             if "result" in row.keys():
                 if len(row["result"]) > 0:
-                    return row["result"][row["result"].keys()[0]]
+                    return row["result"][list(row["result"])[0]]
                 else:
                     return {}
             else:
@@ -326,9 +326,9 @@ class DBHandler(object):
             return None
 
         if len(rows) > 0:
-            for key, row in rows.iteritems():
+            for key, row in rows.items():
                 if key == "result":
-                    for _, dbrow in row.iteritems():
+                    for _, dbrow in row.items():
                         group_list.append(dbrow)
 
         return group_list
@@ -403,7 +403,7 @@ class DBHandler(object):
         if len(row) > 0:
             if "result" in row.keys():
                 if len(row["result"]) > 0:
-                    return row["result"][row["result"].keys()[0]]
+                    return row["result"][list(row["result"])[0]]
                 else:
                     return {}
             else:

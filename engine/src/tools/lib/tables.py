@@ -94,7 +94,7 @@ class Tables(object):
             result = self.music.read_row(self.keyspace, self.table(), key, row_id)["result"]
 
             # strip "Row n"
-            for _, data in sorted(result.iteritems()):
+            for _, data in sorted(result.items()):
                 rows.append(data)
 
         if raw:
@@ -113,9 +113,9 @@ class Tables(object):
 
         if raw:
             if names:
-                print "\n" + self.table()
+                print("\n" + self.table())
             for row in rows:
-                print row
+                print(row)
             return
 
         if isinstance(rows, list):
@@ -142,8 +142,8 @@ class Tables(object):
 
         if json_file is None:
             if names:
-                print "\n" + self.table()
-            print json.dumps(rows, sort_keys=True, indent=4)
+                print("\n" + self.table())
+            print (json.dumps(rows, sort_keys=True, indent=4))
             return
 
         fh = open(json_file, "w")
@@ -305,4 +305,4 @@ class Groups(Tables):
 
 if __name__ == "__main__":
 
-    print Tables.option_choices()
+    print(Tables.option_choices())
