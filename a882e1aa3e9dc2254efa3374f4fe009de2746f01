@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4991c5b4_cc6d65fa",
+        "filename": "engine/src/tools/crim.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2041
+      },
+      "writtenOn": "2020-01-29T22:37:35Z",
+      "side": 1,
+      "message": "python 3.6 ?",
+      "range": {
+        "startLine": 19,
+        "startChar": 15,
+        "endLine": 19,
+        "endChar": 24
+      },
+      "revId": "a882e1aa3e9dc2254efa3374f4fe009de2746f01",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3156050_f62f34fd",
+        "filename": "engine/src/tools/ppdb.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2041
+      },
+      "writtenOn": "2020-01-29T22:37:35Z",
+      "side": 1,
+      "message": "python 3.6?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 24
+      },
+      "revId": "a882e1aa3e9dc2254efa3374f4fe009de2746f01",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "078d4cb9_2850567a",
+        "filename": "engine/src/valet/engine/search/avail_resources.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2041
+      },
+      "writtenOn": "2020-01-29T22:37:35Z",
+      "side": 1,
+      "message": "I guess we\u0027d need to have a specific version. Please see: https://www.python.org/dev/peps/pep-0394/#recommendation",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "a882e1aa3e9dc2254efa3374f4fe009de2746f01",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
