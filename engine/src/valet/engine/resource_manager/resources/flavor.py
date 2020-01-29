@@ -46,7 +46,7 @@ class Flavor(object):
         self.mem_cap = _f.mem_cap
         self.disk_cap = _f.disk_cap
 
-        for ek, ev in _f.extra_specs.iteritems():
+        for ek, ev in _f.extra_specs.items():
             self.extra_specs[ek] = ev
 
     def need_numa_alignment(self):

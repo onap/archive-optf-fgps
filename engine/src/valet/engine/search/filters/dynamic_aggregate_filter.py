@@ -85,7 +85,7 @@ class DynamicAggregateFilter(object):
         candidate.adjust_avail_resources(ha)
 
         # Change all others in the same rack.
-        for hrk, hr in self.avail_hosts.iteritems():
+        for hrk, hr in self.avail_hosts.items():
             if hrk != candidate.host_name:
                 if hr.rack_name == candidate.rack_name:
                     hr.adjust_avail_rack_resources(ha, 
@@ -130,7 +130,7 @@ class DynamicAggregateFilter(object):
             candidate.candidate_host_types = copy.deepcopy(candidate.old_candidate_host_types)
             candidate.old_candidate_host_types.clear()
 
-            for hrk, hr in self.avail_hosts.iteritems():
+            for hrk, hr in self.avail_hosts.items():
                 if hrk != candidate.host_name:
                     if hr.rack_name == candidate.rack_name:
                         hr.rollback_avail_rack_resources(ha,

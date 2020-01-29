@@ -39,7 +39,7 @@ if __name__ == "__main__":
     results = json.loads(inf.read())
     if opts.verbose:
         print (json.dumps(results, sort_keys=True, indent=4))
-        print "---------------------------------------------"
+        print ("---------------------------------------------")
 
     if "request" in results.keys():
         key = "request"
@@ -57,7 +57,7 @@ if __name__ == "__main__":
             print (json.dumps(result, sort_keys=True, indent=4))
             sys.exit(0)
 
-        for _, row in result.iteritems():
+        for _, row in result.items():
             rr = json.loads(row["result"])
 
             # for k, d in row.iteritems():
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
             sys.stdout.write("result ")
             sys.stdout.flush()
-            print json.dumps(rr, indent=4)
+            print (json.dumps(rr, indent=4))
             # for f in rr:
             #     for line in (json.dumps(f, sort_keys=True, indent=4)).splitlines():
             #         print "\t%s"%line

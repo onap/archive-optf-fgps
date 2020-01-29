@@ -32,7 +32,7 @@ def get_next_placements(_n, _level):
         if LEVEL.index(_n.level) < LEVEL.index(_level):
             groups[_n.vid] = _n
         else:
-            for _, sg in _n.subgroups.iteritems():
+            for _, sg in _n.subgroups.items():
                 if isinstance(sg, Group):
                     groups[sg.vid] = sg
                 else:

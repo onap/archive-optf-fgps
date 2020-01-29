@@ -34,7 +34,7 @@ class QuorumDiversityFilter(object):
 
     def check_pre_condition(self, _level, _v, _avail_hosts, _avail_groups):
         if len(_v.quorum_diversity_groups) > 0:
-            for _, qdiv_group in _v.quorum_diversity_groups.iteritems():
+            for _, qdiv_group in _v.quorum_diversity_groups.items():
                 if qdiv_group.level == _level:
                     self.quorum_diversity_group_list.append(qdiv_group)
 
@@ -69,7 +69,7 @@ class QuorumDiversityFilter(object):
         memberships = _candidate.get_memberships(_level)
 
         for qdiv in self.quorum_diversity_group_list:
-            for gk, gr in memberships.iteritems():
+            for gk, gr in memberships.items():
                 if gr.group_type == "quorum-diversity" and gk == qdiv.vid:
                     return False
 
@@ -87,7 +87,7 @@ class QuorumDiversityFilter(object):
 
             num_of_placed_servers_in_candidate = -1
 
-            for gk, gr in memberships.iteritems():
+            for gk, gr in memberships.items():
                 if gr.group_type == "quorum-diversity" and gk == qdiv.vid:
                     # Total num of servers under this rule
                     total_num_of_servers += gr.original_num_of_placed_servers

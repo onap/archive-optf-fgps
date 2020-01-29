@@ -105,13 +105,13 @@ if __name__ == "__main__":
 
     if opts.viewTables:
         for table in Tables.__subclasses__():
-            print (re.sub("[[\]',]", '', str(table.table_alias()))).split(" ")[0]
+            print((re.sub("[[\]',]", '', str(table.table_alias()))).split(" ")[0])
         sys.exit(0)
 
     if opts.viewSchema:
         for table in Tables.__subclasses__():
             sys.stdout.write(re.sub("[[\]',]", '', str(table.table_alias())) + ' ')
-            print json.dumps(table.schema, sort_keys=True, indent=2), "\n"
+            print(json.dumps(table.schema, sort_keys=True, indent=2), "\n")
         sys.exit(0)
 
     """ Keyspace Create """  # <<<1
@@ -137,7 +137,7 @@ if __name__ == "__main__":
             opts.names = True
             for keyspace in Song.Keyspaces.keys():
                 music.keyspace = Song.Keyspaces[keyspace]
-                print "\n-----------------    %s : %s    -----------------" % (keyspace, music.keyspace)
+                print("\n-----------------    %s : %s    -----------------" % (keyspace, music.keyspace))
                 # noinspection PyBroadException
                 try:
                     for tName in opts.read:
@@ -155,13 +155,13 @@ if __name__ == "__main__":
     # show all db stuff <<<1
     if opts.show or opts.ShowConfig:
         if opts.show:
-            print "music"
+            print("music")
             pprint(music.__dict__, indent=2)
-            print "\nrest"
+            print("\nrest")
             pprint(music.rest.__dict__, indent=2)
 
             if table is not None:
-                print "\n", table.table()
+                print("\n", table.table())
                 pprint(table.__dict__, indent=2)
 
         if opts.ShowConfig:
@@ -193,7 +193,7 @@ if __name__ == "__main__":
     """ UPDATE use json file to update db record """  # <<<1
     if opts.action == 'u':
         if not opts.file or not os.path.exists(opts.file):
-            print "--file filename (filename exists) is required for update"
+            print("--file filename (filename exists) is required for update")
             sys.exit(1)
 
         table.update(opts.file)
@@ -202,7 +202,7 @@ if __name__ == "__main__":
     """ DELETE  use id to delete record from db -- requres ID """  # <<<1
     if opts.action == 'd':
         if not opts.id:
-            print "--id ID is required for delete"
+            print("--id ID is required for delete")
             sys.exit(1)
 
         if opts.id:

@@ -34,7 +34,7 @@ class Parser(object):
 
         servers = {}
 
-        for rk, r in _stack.iteritems():
+        for rk, r in _stack.items():
             properties = r.get("properties")
 
             server_name = properties["name"].strip()
@@ -65,7 +65,7 @@ class Parser(object):
                 ess = properties.get("extra_specs", {})
                 if len(ess) > 0:
                     extra_specs = {}
-                    for mk, mv in ess.iteritems():
+                    for mk, mv in ess.items():
                         extra_specs[mk] = mv
                     server.extra_specs_list.append(extra_specs)
 
@@ -92,7 +92,7 @@ class Parser(object):
             return {}, {}
 
         # To delete all exclusivity and diversity groups after merging
-        groups = {gk: g for gk, g in _groups.iteritems() if g.group_type == "affinity"}
+        groups = {gk: g for gk, g in _groups.items() if g.group_type == "affinity"}
 
         return servers, groups
 
@@ -100,7 +100,7 @@ class Parser(object):
         """Merge diversity sub groups."""
 
         for level in LEVEL:
-            for gk, group in _groups.iteritems():
+            for gk, group in _groups.items():
                 if group.level == level and group.group_type == "diversity":
                     for sk in group.server_list:
                         if sk in _servers.keys():
@@ -116,7 +116,7 @@ class Parser(object):
         """Merge quorum-diversity sub groups."""
 
         for level in LEVEL:
-            for gk, group in _groups.iteritems():
+            for gk, group in _groups.items():
                 if group.level == level and group.group_type == "quorum-diversity":
                     for sk in group.server_list:
                         if sk in _servers.keys():
@@ -132,7 +132,7 @@ class Parser(object):
         """Merge exclusivity sub groups."""
 
         for level in LEVEL:
-            for gk, group in _groups.iteritems():
+            for gk, group in _groups.items():
                 if group.level == level and group.group_type == "exclusivity":
                     for sk in group.server_list:
                         if sk in _servers.keys():
@@ -199,21 +199,21 @@ class Parser(object):
     def _add_implicit_diversity_groups(self, _group, _diversity_groups):
         """Add subgroup's diversity groups."""
 
-        for dk, div_group in _diversity_groups.iteritems():
+        for dk, div_group in _diversity_groups.items():
             if LEVEL.index(div_group.level) >= LEVEL.index(_group.level):
                 _group.diversity_groups[dk] = div_group
 
     def _add_implicit_quorum_diversity_groups(self, _group, _quorum_diversity_groups):
         """Add subgroup's quorum diversity groups."""
 
-        for dk, div_group in _quorum_diversity_groups.iteritems():
+        for dk, div_group in _quorum_diversity_groups.items():
             if LEVEL.index(div_group.level) >= LEVEL.index(_group.level):
                 _group.quorum_diversity_groups[dk] = div_group
 
     def _add_implicit_exclusivity_groups(self, _group, _exclusivity_groups):
         """Add subgroup's exclusivity groups."""
 
-        for ek, ex_group in _exclusivity_groups.iteritems():
+        for ek, ex_group in _exclusivity_groups.items():
             if LEVEL.index(ex_group.level) >= LEVEL.index(_group.level):
                 _group.exclusivity_groups[ek] = ex_group
 

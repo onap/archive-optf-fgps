@@ -37,7 +37,7 @@ def set_argument(arg=None, prompt=None, multiline=False):
         if sys.stdin in select.select([sys.stdin], [], [], .5)[0]:
             message = sys.stdin.readlines()
         else:
-            print prompt,
+            print(prompt)
             if multiline:
                 sentinel = ''
                 message = list(iter(raw_input, sentinel))
@@ -64,10 +64,10 @@ if __name__ == "__main__":
 
     msg = set_argument(sys.argv[0])
     for row in msg:
-        print row,
-    print "\n", list2string(msg)
+        print(row)
+    print("\n", list2string(msg))
 
     msg = set_argument(prompt="Message? ")
     for row in msg:
-        print row,
-    print "\n", list2string(msg)
+        print(row)
+    print("\n", list2string(msg))

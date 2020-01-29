@@ -31,7 +31,7 @@ class DiversityFilter(object):
 
     def check_pre_condition(self, _level, _v, _avail_hosts, _avail_groups):
         if len(_v.diversity_groups) > 0:
-            for _, div_group in _v.diversity_groups.iteritems():
+            for _, div_group in _v.diversity_groups.items():
                 if div_group.level == _level:
                     self.diversity_list.append(div_group.vid)
 
@@ -55,7 +55,7 @@ class DiversityFilter(object):
         memberships = _candidate.get_memberships(_level)
 
         for diversity_id in self.diversity_list:
-            for gk, gr in memberships.iteritems():
+            for gk, gr in memberships.items():
                 if gr.group_type == "diversity" and gk == diversity_id:
                     return False
 

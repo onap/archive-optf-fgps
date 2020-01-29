@@ -47,7 +47,7 @@ class AvailResources(object):
     def set_next_avail_hosts(self, _avail_hosts, _resource_of_level):
         """Set the next level of available hosting resources."""
 
-        for hk, h in _avail_hosts.iteritems():
+        for hk, h in _avail_hosts.items():
             if self.level == "rack":
                 if h.rack_name == _resource_of_level:
                     self.avail_hosts[hk] = h
@@ -57,7 +57,7 @@ class AvailResources(object):
 
     def set_candidates(self):
         if self.level == "rack":
-            for _, h in self.avail_hosts.iteritems():
+            for _, h in self.avail_hosts.items():
                 self.candidates[h.rack_name] = h
         elif self.level == "host":
             self.candidates = self.avail_hosts
@@ -66,7 +66,7 @@ class AvailResources(object):
         candidate = None
 
         if self.level == "rack":
-            for _, h in self.avail_hosts.iteritems():
+            for _, h in self.avail_hosts.items():
                 if h.rack_name == _resource.rack_name:
                     candidate = h
         elif self.level == "host":

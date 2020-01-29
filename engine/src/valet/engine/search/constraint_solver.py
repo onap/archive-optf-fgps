@@ -75,7 +75,7 @@ class ConstraintSolver(object):
         # This is the resource which name is 'any'
         ghost_candidate = None
 
-        for _, r in _avail_resources.candidates.iteritems():
+        for _, r in _avail_resources.candidates.items():
             candidate_list.append(r)
 
             if r.get_resource_name(level) == "any":

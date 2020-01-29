@@ -158,7 +158,7 @@ class Resource(object):
 
         hgs = resource.get("host_groups")
         if hgs:
-            for hgk, hg in hgs.iteritems():
+            for hgk, hg in hgs.items():
                 host_group = self.host_groups[hgk]
 
                 pk = hg.get("parent")
@@ -175,7 +175,7 @@ class Resource(object):
 
         hs = resource.get("hosts")
         if hs:
-            for hk, h in hs.iteritems():
+            for hk, h in hs.items():
                 host = self.hosts[hk]
 
                 pk = h.get("parent")
@@ -184,7 +184,7 @@ class Resource(object):
                 elif pk in self.host_groups.keys():
                     host.host_group = self.host_groups[pk]
 
-        for _, g in self.groups.iteritems():
+        for _, g in self.groups.items():
             for hk in g.member_hosts.keys():
                 if hk not in self.hosts.keys() and \
                    hk not in self.host_groups.keys():
@@ -199,7 +199,7 @@ class Resource(object):
            create Group instance.
         """
 
-        for gk, g in _groups.iteritems():
+        for gk, g in _groups.items():
             group = Group(gk)
 
             group.status = g.get("status")
@@ -214,13 +214,13 @@ class Resource(object):
             if rule_id != "none" and rule_id in self.group_rules.keys():
                 group.rule = self.group_rules[rule_id]
 
-            for mk, mv in g["metadata"].iteritems():
+            for mk, mv in g["metadata"].items():
                 group.metadata[mk] = mv
 
             for s_info in g["server_list"]:
                 group.server_list.append(s_info)
 
-            for hk, server_list in g["member_hosts"].iteritems():
+            for hk, server_list in g["member_hosts"].items():
                 group.member_hosts[hk] = []
                 for s_info in server_list:
                     group.member_hosts[hk].append(s_info)
@@ -232,7 +232,7 @@ class Resource(object):
            create Flavor instance.
         """
 
-        for fk, f in _flavors.iteritems():
+        for fk, f in _flavors.items():
             flavor = Flavor(fk)
 
             flavor.status = f.get("status")
@@ -241,7 +241,7 @@ class Resource(object):
             flavor.vCPUs = f.get("vCPUs")
             flavor.mem_cap = f.get("mem")
             flavor.disk_cap = f.get("disk")
-            for k, v in f["extra_specs"].iteritems():
+            for k, v in f["extra_specs"].items():
                 flavor.extra_specs[k] = v
 
             self.flavors[fk] = flavor
@@ -251,7 +251,7 @@ class Resource(object):
            create Host instance.
         """
 
-        for hk, h in _hosts.iteritems():
+        for hk, h in _hosts.items():
             host = Host(hk)
 
             host.status = h.get("status")
@@ -286,7 +286,7 @@ class Resource(object):
 
             # Not used by Valet currently, only capacity planning module
             if "candidate_host_types" in h.keys():
-                for htk, ht in h["candidate_host_types"].iteritems():
+                for htk, ht in h["candidate_host_types"].items():
                     host.candidate_host_types[htk] = ht
             else:
                 host.candidate_host_types = {}
@@ -294,7 +294,7 @@ class Resource(object):
             self.hosts[hk] = host
 
     def _load_host_groups(self, _host_groups):
-        for hgk, hg in _host_groups.iteritems():
+        for hgk, hg in _host_groups.items():
             host_group = HostGroup(hgk)
 
             host_group.status = hg.get("status")
@@ -351,7 +351,7 @@ class Resource(object):
         """Update resource status triggered by placements, events, and batch."""
 
         for level in LEVEL:
-            for _, host_group in self.host_groups.iteritems():
+            for _, host_group in self.host_groups.items():
                 if host_group.host_type == level:
                     if host_group.is_available() and host_group.updated:
                         self._update_host_group(host_group)
@@ -368,7 +368,7 @@ class Resource(object):
         del _host_group.server_list[:]
         _host_group.init_memberships()
 
-        for _, host in _host_group.child_resources.iteritems():
+        for _, host in _host_group.child_resources.items():
             if host.is_available():
                 _host_group.vCPUs += host.vCPUs
                 _host_group.avail_vCPUs += host.avail_vCPUs
@@ -390,7 +390,7 @@ class Resource(object):
         del self.datacenter.server_list[:]
         self.datacenter.memberships.clear()
 
-        for _, resource in self.datacenter.resources.iteritems():
+        for _, resource in self.datacenter.resources.items():
             if resource.is_available():
                 self.datacenter.vCPUs += resource.vCPUs
                 self.datacenter.avail_vCPUs += resource.avail_vCPUs
@@ -412,7 +412,7 @@ class Resource(object):
         cpu_allocation_ratio_list = []
         disk_allocation_ratio_list = []
 
-        for _, g in host.memberships.iteritems():
+        for _, g in host.memberships.items():
             if g.group_type == "aggr":
                 if g.name.startswith("valet:"):
                     metadata = g.metadata["prior_metadata"]
@@ -531,7 +531,7 @@ class Resource(object):
                 if host_name is not None:
                     host = self.hosts[host_name]
         else:
-            for _, h in self.hosts.iteritems():
+            for _, h in self.hosts.items():
                 if h.has_server(_s_info):
                     host = h
                     break
@@ -547,7 +547,7 @@ class Resource(object):
         if change_of_placements is None:
             change_of_placements = self.change_of_placements
 
-        for _, change in change_of_placements.iteritems():
+        for _, change in change_of_placements.items():
             if "new_host" in change and "old_host" in change:
                 # Migration case
 
@@ -707,7 +707,7 @@ class Resource(object):
         if new_groups is None:
             new_groups = self._get_new_grouping()
 
-        for _, placement in change_of_placements.iteritems():
+        for _, placement in change_of_placements.items():
             if "new_host" in placement.keys() and "old_host" in placement.keys():
                 # Migrated server. This server can be unknown one previously.
 
@@ -777,13 +777,13 @@ class Resource(object):
 
         # Add host's memberships for server-group.
         # Do not need to verify.
-        for _, placement in change_of_placements.iteritems():
+        for _, placement in change_of_placements.items():
             if "new_host" in placement.keys():
                 host = self.hosts[placement.get("new_host")]
                 s_info = placement.get("info")
                 new_info = host.get_server_info(s_info)
 
-                for gk, g in self.groups.iteritems():
+                for gk, g in self.groups.items():
                     if g.factory == "server-group" and g.status == "enabled":
                         if g.has_server_uuid(new_info.get("uuid")):
                             if gk not in host.memberships.keys():
@@ -806,7 +806,7 @@ class Resource(object):
         _uuid = _s_info.get("uuid")
         _name = _s_info.get("name")
 
-        for gk, server_list in new_groups.iteritems():
+        for gk, server_list in new_groups.items():
             for s_info in server_list:
                 if s_info["uuid"] != "none":
                     if s_info["uuid"] == _uuid:
@@ -1048,7 +1048,7 @@ class Resource(object):
     def get_group_by_uuid(self, _uuid):
         """Check and get the group with its uuid."""
 
-        for _, g in self.groups.iteritems():
+        for _, g in self.groups.items():
             if g.uuid == _uuid:
                 return g
 
@@ -1151,7 +1151,7 @@ class Resource(object):
                 if a.name.startswith("valet:"):
                     continue
 
-                for mk, mv in a.metadata.iteritems():
+                for mk, mv in a.metadata.items():
                     if mk not in ex_metadata.keys():
                         ex_metadata[mk] = mv
                     else:
@@ -1222,7 +1222,7 @@ class Resource(object):
                     if a.name.startswith("valet:"):
                         continue
 
-                    for mk, mv in a.metadata.iteritems():
+                    for mk, mv in a.metadata.items():
                         if mk not in ex_metadata.keys():
                             ex_metadata[mk] = mv
                         else:
@@ -1400,7 +1400,7 @@ class Resource(object):
 
         # Update total capacities of each host.
         # Triggered by overcommit ratio update or newly added.
-        for _, host in self.hosts.iteritems():
+        for _, host in self.hosts.items():
             if host.is_available() and host.updated:
                 self.compute_resources(host)
 
@@ -1411,7 +1411,7 @@ class Resource(object):
 
         # Update the available capacities of each NUMA and host.
         # Triggered by unknown server additions and deletions.
-        for _, host in self.hosts.iteritems():
+        for _, host in self.hosts.items():
             if host.is_available() and host.updated:
                 self.compute_avail_resources(host)
 
@@ -1443,7 +1443,7 @@ class Resource(object):
         if flavor_id in self.flavors.keys():
             flavor = self.flavors[flavor_id]
         else:
-            for _, f in self.flavors.iteritems():
+            for _, f in self.flavors.items():
                 if f.flavor_id == flavor_id:
                     flavor = f
                     break
@@ -1488,20 +1488,20 @@ class Resource(object):
 
         # Do not store disbaled resources.
 
-        for fk, flavor in self.flavors.iteritems():
+        for fk, flavor in self.flavors.items():
             # TODO(Gueyoung): store disabled flavor?
             flavor_updates[fk] = flavor.get_json_info()
 
-        for gk, group in self.groups.iteritems():
+        for gk, group in self.groups.items():
             if group.status == "enabled":
                 if group.factory != "valet":
                     group_updates[gk] = group.get_json_info()
 
-        for hk, host in self.hosts.iteritems():
+        for hk, host in self.hosts.items():
             if host.is_available():
                 host_updates[hk] = host.get_json_info()
 
-        for hgk, host_group in self.host_groups.iteritems():
+        for hgk, host_group in self.host_groups.items():
             if host_group.is_available():
                 host_group_updates[hgk] = host_group.get_json_info()
 
@@ -1547,14 +1547,14 @@ class Resource(object):
         self.logger.debug("hosts = " + json.dumps(json_update['hosts'], indent=4))
         self.logger.debug("groups = " + json.dumps(json_update['groups'], indent=4))
         self.logger.debug("flavors = ")
-        for fk, f_info in json_update['flavors'].iteritems():
+        for fk, f_info in json_update['flavors'].items():
             if f_info["vCPUs"] > 0:
                 self.logger.debug(json.dumps(f_info, indent=4))
 
         updated_valet_groups = {}
         new_valet_groups = {}
         deleted_valet_groups = {}
-        for gk, group in self.groups.iteritems():
+        for gk, group in self.groups.items():
             if group.status == "enabled":
                 if group.factory == "valet":
                     if group.new:
@@ -1565,21 +1565,21 @@ class Resource(object):
                 if group.factory == "valet":
                     deleted_valet_groups[gk] = group.get_json_info()
 
-        for gk, g_info in new_valet_groups.iteritems():
+        for gk, g_info in new_valet_groups.items():
             if not self.dbh.create_valet_group(gk, g_info):
                 return False
 
             self.logger.debug("new valet group = " + gk)
             self.logger.debug("info = " + json.dumps(g_info, indent=4))
 
-        for gk, g_info in updated_valet_groups.iteritems():
+        for gk, g_info in updated_valet_groups.items():
             if not self.dbh.update_valet_group(gk, g_info):
                 return False
 
             self.logger.debug("updated valet group = " + gk)
             self.logger.debug("info = " + json.dumps(g_info, indent=4))
 
-        for gk, g_info in deleted_valet_groups.iteritems():
+        for gk, g_info in deleted_valet_groups.items():
             if not self.dbh.delete_valet_group(gk):
                 return False
 

@@ -326,7 +326,7 @@ class App(object):
 
         stack = {}
 
-        for rk, r in _stack["resources"].iteritems():
+        for rk, r in _stack["resources"].items():
             if "type" not in r.keys():
                 self.status = "type key is missing in stack"
                 return None
@@ -359,7 +359,7 @@ class App(object):
             self.logger.warning("non-applicable to valet: no server resource in stack")
             return {}
 
-        first_resource = stack[stack.keys()[0]]
+        first_resource = stack[list(stack)[0]]
         apply_valet = False
 
         # To apply Valet decision, availability_zone must exist.
@@ -369,7 +369,7 @@ class App(object):
             if isinstance(az_value, list):
                 apply_valet = True
 
-        for rk, r in stack.iteritems():
+        for rk, r in stack.items():
             if apply_valet:
                 if "availability_zone" not in r["properties"].keys():
                     self.status = "az is missing in stack for valet"
@@ -400,7 +400,7 @@ class App(object):
     def init_valet_groups(self):
         """Create Valet groups from input request."""
 
-        for rk, r in self.stack.iteritems():
+        for rk, r in self.stack.items():
             properties = r.get("properties", {})
             metadata = properties.get("metadata", {})
 
@@ -490,7 +490,7 @@ class App(object):
 
         if isinstance(_group_hint, dict):
             # _group_hint is a single key/value pair
-            g = _group_hint[_group_hint.keys()[0]]
+            g = _group_hint[list(_group_hint)[0]]
 
             r_type = g.get("type", "none")
             if r_type != "OS::Nova::ServerGroup":
@@ -570,23 +570,23 @@ class App(object):
     def set_weight(self):
         """Set relative weight of each servers and groups."""
 
-        for _, s in self.servers.iteritems():
+        for _, s in self.servers.items():
             self._set_server_weight(s)
 
-        for _, g in self.groups.iteritems():
+        for _, g in self.groups.items():
             self._set_server_weight(g)
 
-        for _, g in self.groups.iteritems():
+        for _, g in self.groups.items():
             self._set_group_resource(g)
 
-        for _, g in self.groups.iteritems():
+        for _, g in self.groups.items():
             self._set_group_weight(g)
 
     def _set_server_weight(self, _v):
         """Set relative weight of each server against available resource amount."""
 
         if isinstance(_v, Group):
-            for _, sg in _v.subgroups.iteritems():
+            for _, sg in _v.subgroups.items():
                 self._set_server_weight(sg)
         else:
             if self.resource.CPU_avail > 0:
@@ -616,7 +616,7 @@ class App(object):
         if isinstance(_g, Server):
             return
 
-        for _, sg in _g.subgroups.iteritems():
+        for _, sg in _g.subgroups.items():
             self._set_group_resource(sg)
             _g.vCPUs += sg.vCPUs
             _g.mem += sg.mem
@@ -649,7 +649,7 @@ class App(object):
             else:
                 _group.local_volume_weight = 0.0
 
-        for _, sg in _group.subgroups.iteritems():
+        for _, sg in _group.subgroups.items():
             if isinstance(sg, Group):
                 self._set_group_weight(sg)
 
@@ -693,7 +693,7 @@ class App(object):
         """Get servers back from containers (i.e., affinity groups)"""
 
         servers = []
-        for _, g in self.groups.iteritems():
+        for _, g in self.groups.items():
             g.get_servers(servers)
 
         for s in servers:

@@ -506,7 +506,7 @@ class Ostro(object):
                 return status, {}
 
         if _app.state == "create":
-            for sk, s in _app.servers.iteritems():
+            for sk, s in _app.servers.items():
                 if s.host_assignment_inx == -1:
                     result[s.host_assignment_variable] = '::' + s.host
                 else:
@@ -516,7 +516,7 @@ class Ostro(object):
                         result[s.host_assignment_variable] = []
                     result[s.host_assignment_variable].insert(s.host_assignment_inx, p)
         elif _app.state == "update":
-            for sk, s in _app.servers.iteritems():
+            for sk, s in _app.servers.items():
                 if s.host_assignment_inx == -1:
                     result[s.host_assignment_variable] = ""
                 else:

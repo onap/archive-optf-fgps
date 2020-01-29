@@ -178,7 +178,7 @@ class MetadataManager(object):
     def _check_host_memberships_updated(self, _resource):
         """Check host memberships consistency."""
 
-        for gk, g in _resource.groups.iteritems():
+        for gk, g in _resource.groups.items():
             # Other group types will be handled later
             if g.factory != "valet" and g.status == "enabled":
                 for hk in g.member_hosts.keys():
@@ -189,7 +189,7 @@ class MetadataManager(object):
 
                         self.logger.info("host (" + hk + ") updated (update membership - " + gk + ")")
 
-        for hk, host in _resource.hosts.iteritems():
+        for hk, host in _resource.hosts.items():
             if host.is_available():
                 for gk in host.memberships.keys():
                     if gk in _resource.groups.keys():
@@ -240,7 +240,7 @@ class MetadataManager(object):
 
             if len(_group.metadata) > 0:
                 metadata = {}
-                for mk, mv in _group.metadata.iteritems():
+                for mk, mv in _group.metadata.items():
                     if mk == "prior_metadata":
                         metadata[mk] = json.dumps(mv)
                     else:
@@ -280,7 +280,7 @@ class MetadataManager(object):
 
         if len(_metadata) > 0:
             metadata = {}
-            for mk, mv in _metadata.iteritems():
+            for mk, mv in _metadata.items():
                 if mk == "prior_metadata":
                     metadata[mk] = json.dumps(mv)
                 else:
@@ -312,7 +312,7 @@ class MetadataManager(object):
 
         if len(_metadata) > 0:
             metadata = {}
-            for mk, mv in _metadata.iteritems():
+            for mk, mv in _metadata.items():
                 if mk == "prior_metadata":
                     metadata[mk] = json.dumps(mv)
                 else:

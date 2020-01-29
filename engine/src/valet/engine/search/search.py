@@ -88,7 +88,7 @@ class Search(object):
         availability-zone, host-aggregate, server-group.
         """
 
-        for gk, g in self.resource.groups.iteritems():
+        for gk, g in self.resource.groups.items():
             if g.status != "enabled":
                 self.logger.debug("group (" + g.name + ") disabled")
                 continue
@@ -104,7 +104,7 @@ class Search(object):
             else:
                 gr.level = "host"
 
-            for mk, mv in g.metadata.iteritems():
+            for mk, mv in g.metadata.items():
                 gr.metadata[mk] = mv
 
             gr.original_num_of_placed_servers = len(g.server_list)
@@ -118,7 +118,7 @@ class Search(object):
     def _create_avail_hosts(self):
         """Create all available hosts."""
 
-        for hk, host in self.resource.hosts.iteritems():
+        for hk, host in self.resource.hosts.items():
             if not host.is_available():
                 self.logger.warning("host (" + host.name + ") not available at this time")
                 continue
@@ -132,7 +132,7 @@ class Search(object):
 
             # Not used by Valet, only capacity planning
             try:
-                for htk, ht in host.candidate_host_types.iteritems():
+                for htk, ht in host.candidate_host_types.items():
                     hr.candidate_host_types[htk] = copy.deepcopy(ht)
             except AttributeError:
                 hr.candidate_host_types = {}
@@ -214,11 +214,11 @@ class Search(object):
 
         open_node_list = []
 
-        for _, s in _servers.iteritems():
+        for _, s in _servers.items():
             self._set_node_weight(s)
             open_node_list.append(s)
 
-        for _, g in _groups.iteritems():
+        for _, g in _groups.items():
             self._set_node_weight(g)
             open_node_list.append(g)
 
@@ -403,11 +403,11 @@ class Search(object):
             self._add_group(_level, _best, _n)
 
         if len(_n.diversity_groups) > 0:
-            for _, div_group in _n.diversity_groups.iteritems():
+            for _, div_group in _n.diversity_groups.items():
                 self._add_group(_level, _best, div_group)
 
         if len(_n.quorum_diversity_groups) > 0:
-            for _, div_group in _n.quorum_diversity_groups.iteritems():
+            for _, div_group in _n.quorum_diversity_groups.items():
                 self._add_group(_level, _best, div_group)
 
         # Apply this placement to hosting resources.
@@ -440,12 +440,12 @@ class Search(object):
         if _group.level == "host":
             if _group.vid not in chosen_host.host_memberships.keys():
                 chosen_host.host_memberships[_group.vid] = gr
-            for _, np in self.avail_hosts.iteritems():
+            for _, np in self.avail_hosts.items():
                 if chosen_host.rack_name != "any" and np.rack_name == chosen_host.rack_name:
                     if _group.vid not in np.rack_memberships.keys():
                         np.rack_memberships[_group.vid] = gr
         else:    # Rack level
-            for _, np in self.avail_hosts.iteritems():
+            for _, np in self.avail_hosts.items():
                 if chosen_host.rack_name != "any" and np.rack_name == chosen_host.rack_name:
                     if _group.vid not in np.rack_memberships.keys():
                         np.rack_memberships[_group.vid] = gr
@@ -477,12 +477,12 @@ class Search(object):
             if _level == "host":
                 if _group.vid not in chosen_host.host_memberships.keys():
                     chosen_host.host_memberships[_group.vid] = gr
-                for _, np in self.avail_hosts.iteritems():
+                for _, np in self.avail_hosts.items():
                     if chosen_host.rack_name != "any" and np.rack_name == chosen_host.rack_name:
                         if _group.vid not in np.rack_memberships.keys():
                             np.rack_memberships[_group.vid] = gr
             else:    # Rack level
-                for _, np in self.avail_hosts.iteritems():
+                for _, np in self.avail_hosts.items():
                     if chosen_host.rack_name != "any" and np.rack_name == chosen_host.rack_name:
                         if _group.vid not in np.rack_memberships.keys():
                             np.rack_memberships[_group.vid] = gr
@@ -521,7 +521,7 @@ class Search(object):
 
         chosen_host.host_num_of_placed_servers += 1
 
-        for _, np in self.avail_hosts.iteritems():
+        for _, np in self.avail_hosts.items():
             if chosen_host.rack_name != "any" and np.rack_name == chosen_host.rack_name:
                 np.rack_avail_vCPUs -= _n.vCPUs
                 np.rack_avail_mem -= _n.mem
@@ -549,7 +549,7 @@ class Search(object):
         if isinstance(_v, Server):
             self._rollback_server_resources(_v)
         elif isinstance(_v, Group):
-            for _, v in _v.subgroups.iteritems():
+            for _, v in _v.subgroups.items():
                 self._rollback_resources(v)
 
         if _v in self.node_placements.keys():
@@ -565,11 +565,11 @@ class Search(object):
                 self._remove_exclusivity(chosen_host, ex_group)
 
             if len(_v.diversity_groups) > 0:
-                for _, div_group in _v.diversity_groups.iteritems():
+                for _, div_group in _v.diversity_groups.items():
                     self._remove_group(chosen_host, div_group, level)
 
             if len(_v.quorum_diversity_groups) > 0:
-                for _, div_group in _v.quorum_diversity_groups.iteritems():
+                for _, div_group in _v.quorum_diversity_groups.items():
                     self._remove_group(chosen_host, div_group, level)
 
     def _remove_exclusivity(self, _chosen_host, _group):
@@ -593,13 +593,13 @@ class Search(object):
                _group.vid in _chosen_host.host_memberships.keys():
                 del _chosen_host.host_memberships[_group.vid]
 
-                for _, np in self.avail_hosts.iteritems():
+                for _, np in self.avail_hosts.items():
                     if _chosen_host.rack_name != "any" and np.rack_name == _chosen_host.rack_name:
                         if _group.vid in np.rack_memberships.keys():
                             del np.rack_memberships[_group.vid]
         else:    # Rack level
             if _chosen_host.rack_num_of_placed_servers == 0:
-                for _, np in self.avail_hosts.iteritems():
+                for _, np in self.avail_hosts.items():
                     if _chosen_host.rack_name != "any" and np.rack_name == _chosen_host.rack_name:
                         if _group.vid in np.rack_memberships.keys():
                             del np.rack_memberships[_group.vid]
@@ -632,13 +632,13 @@ class Search(object):
                 if not exist_group and _group.vid in _chosen_host.host_memberships.keys():
                     del _chosen_host.host_memberships[_group.vid]
 
-                    for _, np in self.avail_hosts.iteritems():
+                    for _, np in self.avail_hosts.items():
                         if _chosen_host.rack_name != "any" and np.rack_name == _chosen_host.rack_name:
                             if _group.vid in np.rack_memberships.keys():
                                 del np.rack_memberships[_group.vid]
             else:    # Rack level
                 if not exist_group:
-                    for _, np in self.avail_hosts.iteritems():
+                    for _, np in self.avail_hosts.items():
                         if _chosen_host.rack_name != "any" and np.rack_name == _chosen_host.rack_name:
                             if _group.vid in np.rack_memberships.keys():
                                 del np.rack_memberships[_group.vid]
@@ -670,7 +670,7 @@ class Search(object):
             if chosen_host.host_num_of_placed_servers == 0:
                 self.num_of_hosts -= 1
 
-            for _, np in self.avail_hosts.iteritems():
+            for _, np in self.avail_hosts.items():
                 if chosen_host.rack_name != "any" and np.rack_name == chosen_host.rack_name:
                     np.rack_avail_vCPUs += _v.vCPUs
                     np.rack_avail_mem += _v.mem
@@ -689,7 +689,7 @@ class Search(object):
                     chosen_host.candidate_host_types = copy.deepcopy(chosen_host.old_candidate_host_types)
                     chosen_host.old_candidate_host_types.clear()
 
-                    for hrk, hr in self.avail_hosts.iteritems():
+                    for hrk, hr in self.avail_hosts.items():
                         if hrk != chosen_host.host_name:
                             if hr.rack_name == chosen_host.rack_name:
                                 hr.rollback_avail_rack_resources(ha,
@@ -704,5 +704,5 @@ class Search(object):
             del self.node_placements[_v]
 
         if isinstance(_v, Group):
-            for _, sg in _v.subgroups.iteritems():
+            for _, sg in _v.subgroups.items():
                 self._rollback_node_placement(sg)

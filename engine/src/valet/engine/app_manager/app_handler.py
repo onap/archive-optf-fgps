@@ -175,7 +175,7 @@ class AppHandler(object):
             return
 
         # Set flavor properties for each server.
-        for rk, r in _app.stack.iteritems():
+        for rk, r in _app.stack.items():
             if "vcpus" not in r["properties"].keys():
                 flavor = _app.resource.get_flavor(r["properties"]["flavor"])
 
@@ -194,7 +194,7 @@ class AppHandler(object):
 
                 if len(flavor.extra_specs) > 0:
                     extra_specs = {}
-                    for mk, mv in flavor.extra_specs.iteritems():
+                    for mk, mv in flavor.extra_specs.items():
                         extra_specs[mk] = mv
                     r["properties"]["extra_specs"] = extra_specs
 
@@ -268,7 +268,7 @@ class AppHandler(object):
                         "vnf_instance_name": _app.vnf_instance_name}
 
             servers = {}
-            for sk, s in _app.servers.iteritems():
+            for sk, s in _app.servers.items():
                 servers[sk] = s.get_json_info()
 
             if not self.dbh.create_stack(_app.app_name,

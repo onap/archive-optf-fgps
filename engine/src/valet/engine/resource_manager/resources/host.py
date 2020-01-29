@@ -382,7 +382,7 @@ class Host(object):
     def get_availability_zone(self):
         """Get the availability-zone of this host."""
 
-        for gk, g in self.memberships.iteritems():
+        for gk, g in self.memberships.items():
             if g.group_type == "az":
                 return g
 
@@ -393,7 +393,7 @@ class Host(object):
 
         aggregates = []
 
-        for gk, g in self.memberships.iteritems():
+        for gk, g in self.memberships.items():
             if g.group_type == "aggr":
                 aggregates.append(g)
 

@@ -45,16 +45,16 @@ class MemDB(object):
         rows = {"result": {}}
 
         if table == self.requests_table:
-            for k, v in self.requests.iteritems():
+            for k, v in self.requests.items():
                 rows["result"][k] = copy.deepcopy(v)
         elif table == self.results_table:
-            for k, v in self.results.iteritems():
+            for k, v in self.results.items():
                 rows["result"][k] = copy.deepcopy(v)
         elif table == self.group_rules_table:
-            for k, v in self.group_rules.iteritems():
+            for k, v in self.group_rules.items():
                 rows["result"][k] = copy.deepcopy(v)
         elif table == self.groups_table:
-            for k, v in self.groups.iteritems():
+            for k, v in self.groups.items():
                 rows["result"][k] = copy.deepcopy(v)
 
         return rows

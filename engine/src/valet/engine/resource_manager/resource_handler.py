@@ -124,7 +124,7 @@ class ResourceHandler:
         if valet_group_list is None:
             return None
 
-        for rk, rule in self.group_rules.iteritems():
+        for rk, rule in self.group_rules.items():
             rule_info = self._get_rule(rule)
 
             for vg in valet_group_list:
@@ -163,7 +163,7 @@ class ResourceHandler:
 
         rule = self.group_rules[_rule_name]
 
-        for gk, g in _resource.groups.iteritems():
+        for gk, g in _resource.groups.items():
             if g.factory == "valet":
                 if g.rule.rule_id == _rule_name:
                     placements[gk] = self._get_placements(g, _resource)
@@ -185,7 +185,7 @@ class ResourceHandler:
 
         placements = {}
 
-        for hk, server_list in _g.member_hosts.iteritems():
+        for hk, server_list in _g.member_hosts.items():
             for s_info in server_list:
                 sid = s_info.get("stack_name") + ":" + s_info.get("name")
                 placements[sid] = {}
@@ -216,7 +216,7 @@ class ResourceHandler:
                     if hg.host_type == "rack":
                         placements[sid]["rack"] = hg.name
 
-                        for hhk, host in hg.child_resources.iteritems():
+                        for hhk, host in hg.child_resources.items():
                             if host.has_server(s_info):
                                 placements[sid]["host"] = host.name
 

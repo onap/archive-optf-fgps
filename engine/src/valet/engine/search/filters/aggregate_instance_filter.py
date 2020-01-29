@@ -61,7 +61,7 @@ class AggregateInstanceExtraSpecsFilter(object):
         else:
             # In rack level, if any host's host_type in the rack is not determined,
             # skip the filter
-            for _, rh in self.avail_hosts.iteritems():
+            for _, rh in self.avail_hosts.items():
                 if rh.rack_name == _candidate.rack_name:
                     if len(rh.candidate_host_types) > 0:
                         return True
@@ -69,7 +69,7 @@ class AggregateInstanceExtraSpecsFilter(object):
         metadatas = filter_utils.aggregate_metadata_get_by_host(_level, _candidate)
 
         for extra_specs in _v.extra_specs_list:
-            for gk, metadata in metadatas.iteritems():
+            for gk, metadata in metadatas.items():
                 if self._match_metadata(gk, extra_specs, metadata):
                     break
             else:

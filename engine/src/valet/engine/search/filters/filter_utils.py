@@ -82,7 +82,7 @@ def aggregate_metadata_get_by_host(_level, _host, _key=None):
 
     groups = _host.get_memberships(_level)
 
-    for gk, g in groups.iteritems():
+    for gk, g in groups.items():
         if g.group_type == "aggr":
             if _key is None or _key in g.metadata:
                 metadata = collections.defaultdict(set)
@@ -104,7 +104,7 @@ def availability_zone_get_by_host(_level, _host):
 
     groups = _host.get_memberships(_level)
 
-    for gk, g in groups.iteritems():
+    for gk, g in groups.items():
         if g.group_type == "az":
             g_name_elements = gk.split(':', 1)
             if len(g_name_elements) > 1:
