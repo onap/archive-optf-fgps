@@ -312,24 +312,15 @@ public final class EELFManager {
                 String msg = EELFResourceManager.getMessage(EELFMsgs.LOADING_LOG_CONFIGURATION,file.getAbsolutePath());	                
                 delayedLogging.add(msg);
 
-                BufferedInputStream stream = null;
-                try {
-                    stream = new BufferedInputStream(new FileInputStream(file));
+                try (BufferedInputStream stream = new BufferedInputStream(new FileInputStream(file));){
                     delayedLogging.add(String.format("EELF000I Loading logging configuration from %s",
                         file.getAbsolutePath()));
                      loadLoggingConfiguration(stream, delayedLogging);
                 } catch (FileNotFoundException e) {
                     delayedLogging.add(EELFResourceManager.format(e));
-                } finally {
-                    if (stream != null) {
-                        try {
-                            stream.close();
-                        } catch (IOException e) {
-                            // not much we can do since logger may not be configured yet
-                            e.printStackTrace(System.out);
-                        }
-                    }
-                }
+                } catch (IOException e1) {
+                	 delayedLogging.add(EELFResourceManager.format(e1));
+				} 
 
                 return true;
             }
