@@ -61,6 +61,11 @@ committers:
     company: 'ATT'
     id: 'snarayanan'
     timezone: 'America/Bedminster'
+  - name: 'Dhebeha MJ'
+    email: 'dhebeha.mj71@wipro.com'
+    company: 'Wipro'
+    id: 'dhebeha'
+    timezone: 'India/IST UTC+5:30'
 tsc:
   approval: 'https://lists.onap.org/pipermail/onap-tsc'
   changes:
@@ -104,3 +109,6 @@ tsc:
     - type: 'Removal'
       name: 'Ramki Krishnan'
       link: 'https://lists.onap.org/g/onap-oof/message/568'
+    - type: 'Addition'
+      name: 'Dhebeha MJ'
+      link: 'https://wiki.onap.org/x/PrULBQ'
